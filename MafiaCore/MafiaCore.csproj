@@ -52,7 +52,6 @@
     <Compile Include="Effects\DecrementCounterEffect.cs" />
     <Compile Include="Effects\ForEveryPlayerEffect.cs" />
     <Compile Include="Effects\RemoveFlagEffect.cs" />
-    <Compile Include="Effects\PostToMessageBoardEffect.cs" />
     <Compile Include="Effects\AddFlagEffect.cs" />
     <Compile Include="Effects\ClearTargetEffect.cs" />
     <Compile Include="Effects\BranchEffect.cs" />
@@ -72,7 +71,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="ISelector.cs" />
-    <Compile Include="Selectors\StringCombineSelector.cs" />
     <Compile Include="Selectors\ArithmaticValueSelector.cs" />
     <Compile Include="Selectors\BranchSelector.cs" />
     <Compile Include="Selectors\ConstantSelector.cs" />
@@ -81,7 +79,7 @@
     <Compile Include="Selectors\GameContextSelector.cs" />
     <Compile Include="Selectors\ExecutingPlayerSelector.cs" />
     <Compile Include="Selectors\TargetPlayerSelector.cs" />
-    <Compile Include="Selectors\ValueFromCounterSelector.cs" />
+    <Compile Include="Selectors\CounterValueSelector.cs" />
     <Compile Include="Team.cs" />
     <Compile Include="GameVariant.cs" />
   </ItemGroup>

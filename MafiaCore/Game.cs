@@ -128,7 +128,6 @@ namespace MafiaCore
         public void MoveToNextPhase()
         {
             actionExecutionRequests.Clear();
-            ClearAllMessageBoards();
             currentGamePhaseIndex++;
             currentGamePhaseIndex %= GameMode.GamePhases.Count;
         }
@@ -227,15 +226,6 @@ namespace MafiaCore
             foreach (Player player in Players)
             {
                 player.Role.StartingEffect.Apply(new ExecutionParams(player, gameContext, new Context()));
-            }
-        }
-
-        private void ClearAllMessageBoards()
-        {
-            gameContext.ClearMessages();
-            foreach (Player player in Players)
-            {
-                player.Context.ClearMessages();
             }
         }
     }

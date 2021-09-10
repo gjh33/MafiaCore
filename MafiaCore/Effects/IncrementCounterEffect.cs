@@ -11,7 +11,6 @@ namespace MafiaCore.Effects
         public ISelector<Context> ContextSelector;
         public ISelector<string> CounterSelector;
 
-
         public override void Apply(ExecutionParams executionContext)
         {
             Context selectedContext = ContextSelector.Select(executionContext);

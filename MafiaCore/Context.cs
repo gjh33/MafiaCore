@@ -11,7 +11,6 @@ namespace MafiaCore
         private HashSet<string> flags = new HashSet<string>();
         private Dictionary<string, int> counters = new Dictionary<string, int>();
         private Dictionary<string, Player> targets = new Dictionary<string, Player>();
-        private Queue<string> messages = new Queue<string>();
 
         public Context() { }
 
@@ -73,21 +72,6 @@ namespace MafiaCore
         public void RemoveTarget(string target)
         {
             targets.Remove(target);
-        }
-
-        public void PostMessage(string message)
-        {
-            messages.Enqueue(message);
-        }
-
-        public void ClearMessages()
-        {
-            messages.Clear();
-        }
-
-        public IEnumerable<string> GetMessages()
-        {
-            return messages;
         }
     }
 }

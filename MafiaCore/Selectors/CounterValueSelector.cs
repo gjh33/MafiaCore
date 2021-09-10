@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MafiaCore.Selectors
 {
-    public class ValueFromCounterSelector : ISelector<int>
+    public class CounterValueSelector : ISelector<int>
     {
         public ISelector<Context> ContextSelector;
         public ISelector<string> CounterSelector;
