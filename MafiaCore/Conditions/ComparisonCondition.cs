@@ -11,8 +11,8 @@ namespace MafiaCore.Conditions
         public enum ComparisonOperator { GreaterThan, GreaterThanOrEqualTo, EqualTo, LessThanOrEqualTo, LessThan }
 
         public ComparisonOperator Operator;
-        public ISelector<int> LeftOperandValueSelector;
-        public ISelector<int> RightOperandValueSelector;
+        public Selector<int> LeftOperandValueSelector;
+        public Selector<int> RightOperandValueSelector;
 
         public override bool Evaluate(ExecutionParams context)
         {

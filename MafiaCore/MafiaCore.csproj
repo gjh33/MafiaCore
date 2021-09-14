@@ -71,10 +71,11 @@
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />
-    <Compile Include="ISelector.cs" />
+    <Compile Include="Selector.cs" />
     <Compile Include="Selectors\ArithmaticValueSelector.cs" />
     <Compile Include="Selectors\BranchSelector.cs" />
     <Compile Include="Selectors\ConstantSelector.cs" />
+    <Compile Include="Selectors\ForEveryPlayerSelector.cs" />
     <Compile Include="Selectors\PlayerContextSelector.cs" />
     <Compile Include="Selectors\LocalContextSelector.cs" />
     <Compile Include="Selectors\GameContextSelector.cs" />

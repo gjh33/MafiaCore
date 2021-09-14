@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace MafiaCore.Selectors
 {
-    public class TargetPlayerSelector : ISelector<Player>
+    public class TargetPlayerSelector : Selector<Player>
     {
-        public ISelector<Context> ContextSelector;
-        public ISelector<string> TargetSelector;
+        public Selector<Context> ContextSelector;
+        public Selector<string> TargetSelector;
 
-        public Player Select(ExecutionParams executionContext)
+        public override Player Select(ExecutionParams executionContext)
         {
             Context selectedContext = ContextSelector.Select(executionContext);
             if (selectedContext == null) return null;

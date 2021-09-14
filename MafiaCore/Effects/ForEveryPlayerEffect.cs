@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MafiaCore.Effects
 {
-    public class ForEveryPlayerEffect : Effect, ISelector<Player>
+    public class ForEveryPlayerEffect : Effect
     {
         public Effect ForEachEffect;
 

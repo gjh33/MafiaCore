@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MafiaCore.Selectors
 {
-    public class ExecutingPlayerSelector : ISelector<Player>
+    public class ExecutingPlayerSelector : Selector<Player>
     {
-        public Player Select(ExecutionParams executionContext)
+        public override Player Select(ExecutionParams executionContext)
         {
             return executionContext.ExecutingPlayer;
         }

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace MafiaCore
 {
-    public interface ISelector<T>
+    public abstract class Selector<T>
     {
-        T Select(ExecutionParams executionContext);
+        public abstract T Select(ExecutionParams executionContext);
     }
 }

@@ -8,9 +8,9 @@ namespace MafiaCore.Effects
 {
     public class SetCounterEffect : Effect
     {
-        public ISelector<Context> ContextSelector;
-        public ISelector<string> CounterSelector;
-        public ISelector<int> ValueSelector;
+        public Selector<Context> ContextSelector;
+        public Selector<string> CounterSelector;
+        public Selector<int> ValueSelector;
 
 
         public override void Apply(ExecutionParams executionContext)

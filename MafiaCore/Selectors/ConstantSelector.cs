@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace MafiaCore.Selectors
 {
-    public class ConstantSelector<T> : ISelector<T>
+    public class ConstantSelector<T> : Selector<T>
     {
         public T Value;
 
-        public T Select(ExecutionParams executionContext)
+        public override T Select(ExecutionParams executionContext)
         {
             return Value;
         }

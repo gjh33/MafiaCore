@@ -8,8 +8,8 @@ namespace MafiaCore.Effects
 {
     public class RemoveFlagEffect : Effect
     {
-        public ISelector<Context> ContextSelector;
-        public ISelector<string> FlagSelector;
+        public Selector<Context> ContextSelector;
+        public Selector<string> FlagSelector;
 
         public override void Apply(ExecutionParams executionContext)
         {

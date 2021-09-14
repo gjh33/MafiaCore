@@ -8,8 +8,8 @@ namespace MafiaCore.Effects
 {
     public class ClearTargetEffect : Effect
     {
-        public ISelector<Context> ContextSelector;
-        public ISelector<string> TargetSelector;
+        public Selector<Context> ContextSelector;
+        public Selector<string> TargetSelector;
 
         public override void Apply(ExecutionParams executionContext)
         {

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace MafiaCore.Selectors
 {
-    public class CounterValueSelector : ISelector<int>
+    public class CounterValueSelector : Selector<int>
     {
-        public ISelector<Context> ContextSelector;
-        public ISelector<string> CounterSelector;
+        public Selector<Context> ContextSelector;
+        public Selector<string> CounterSelector;
 
-        public int Select(ExecutionParams executionContext)
+        public override int Select(ExecutionParams executionContext)
         {
             Context selectedContext = ContextSelector.Select(executionContext);
             if (selectedContext == null) return 0;

@@ -8,8 +8,8 @@ namespace MafiaCore.Conditions
 {
     public class HasFlagCondition : Condition
     {
-        public ISelector<Context> ContextSelector;
-        public ISelector<string> FlagSelector;
+        public Selector<Context> ContextSelector;
+        public Selector<string> FlagSelector;
 
         public override bool Evaluate(ExecutionParams context)
         {

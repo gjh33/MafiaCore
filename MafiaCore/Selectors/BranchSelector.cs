@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace MafiaCore.Selectors
 {
-    public class BranchSelector<T> : ISelector<T>
+    public class BranchSelector<T> : Selector<T>
     {
         public Condition Condition;
-        public ISelector<T> TrueSelector;
-        public ISelector<T> FalseSelector;
+        public Selector<T> TrueSelector;
+        public Selector<T> FalseSelector;
 
-        public T Select(ExecutionParams executionContext)
+        public override T Select(ExecutionParams executionContext)
         {
             if (Condition.Evaluate(executionContext))
             {

@@ -8,8 +8,8 @@ namespace MafiaCore.Effects
 {
     public class IncrementCounterEffect : Effect
     {
-        public ISelector<Context> ContextSelector;
-        public ISelector<string> CounterSelector;
+        public Selector<Context> ContextSelector;
+        public Selector<string> CounterSelector;
 
         public override void Apply(ExecutionParams executionContext)
         {

@@ -8,9 +8,9 @@ namespace MafiaCore.Effects
 {
     public class SetTargetEffect : Effect
     {
-        public ISelector<Context> ContextSelector;
-        public ISelector<string> TargetSelector;
-        public ISelector<Player> PlayerSelector;
+        public Selector<Context> ContextSelector;
+        public Selector<string> TargetSelector;
+        public Selector<Player> PlayerSelector;
 
         public override void Apply(ExecutionParams executionContext)
         {

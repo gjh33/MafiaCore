@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MafiaCore.Selectors
 {
-    public class GameContextSelector : ISelector<Context>
+    public class GameContextSelector : Selector<Context>
     {
-        public Context Select(ExecutionParams executionContext)
+        public override Context Select(ExecutionParams executionContext)
         {
             return executionContext.GameContext;
         }

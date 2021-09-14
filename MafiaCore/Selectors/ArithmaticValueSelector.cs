@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace MafiaCore.Selectors
 {
-    public class ArithmaticValueSelector : ISelector<int>
+    public class ArithmaticValueSelector : Selector<int>
     {
         public enum MathOperation { Add, Subtract, Multiply, Divide }
 
         public MathOperation Operation;
-        public ISelector<int> LeftOperandValueSelector;
-        public ISelector<int> RightOperandValueSelector;
+        public Selector<int> LeftOperandValueSelector;
+        public Selector<int> RightOperandValueSelector;
 
-        public int Select(ExecutionParams executionContext)
+        public override int Select(ExecutionParams executionContext)
         {
             int left = LeftOperandValueSelector.Select(executionContext);
             int right = RightOperandValueSelector.Select(executionContext);
