@@ -45,14 +45,14 @@ namespace MafiaCore
 
         public void StartGame()
         {
+            gameContext = new GameContext();
+            gameContext.Players.AddRange(Players);
             GameVariant = GameMode.GetVariant(Players.Count);
             Teams = GameVariant.ComputeTeams();
             currentGamePhaseIndex = 0;
             AssignRoles();
             PerformStartingEffects();
             CurrentState = State.Playing;
-            gameContext = new GameContext();
-            gameContext.Players.AddRange(Players);
         }
 
         public void EnqueueActionExecutionRequest(Action action, Player executingPlayer, Context requestContext)
