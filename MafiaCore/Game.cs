@@ -210,22 +210,22 @@ namespace MafiaCore
 
         private void PerformStartingEffects()
         {
-            GameMode.StartingEffect.Apply(new ExecutionParams(null, gameContext, new Context()));
+            GameMode.StartingEffect?.Apply(new ExecutionParams(null, gameContext, new Context()));
             foreach (Team team in GameVariant.ComputeTeams())
             {
-                team.StartingEffect.Apply(new ExecutionParams(null, gameContext, new Context()));
+                team.StartingEffect?.Apply(new ExecutionParams(null, gameContext, new Context()));
             }
             foreach (Player player in Players)
             {
-                GameMode.SharedStartingEffect.Apply(new ExecutionParams(player, gameContext, new Context()));
+                GameMode.SharedStartingEffect?.Apply(new ExecutionParams(player, gameContext, new Context()));
             }
             foreach (Player player in Players)
             {
-                player.Role.Team.SharedStartingEffect.Apply(new ExecutionParams(player, gameContext, new Context()));
+                player.Role.Team.SharedStartingEffect?.Apply(new ExecutionParams(player, gameContext, new Context()));
             }
             foreach (Player player in Players)
             {
-                player.Role.StartingEffect.Apply(new ExecutionParams(player, gameContext, new Context()));
+                player.Role.StartingEffect?.Apply(new ExecutionParams(player, gameContext, new Context()));
             }
         }
     }
