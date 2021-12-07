@@ -8,8 +8,14 @@ namespace MafiaCore
 {
     public class Action
     {
+        public string Name;
         public Condition AvailabilityCondition;
+        public Effect InstantEffect;
         public Condition ExecutionCondition;
         public Effect ExecutionEffect;
+
+        public List<Selector<string>> PlayerInputTargets;
+        public List<Selector<string>> PlayerInputCounters;
+        public List<Selector<string>> PlayerInputFlags;
     }
 }

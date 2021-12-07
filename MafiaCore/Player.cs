@@ -8,6 +8,7 @@ namespace MafiaCore
 {
     public class Player
     {
+        public string Name;
         public Role Role;
         public Context Context = new Context();
 

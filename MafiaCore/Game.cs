@@ -21,121 +21,52 @@ namespace MafiaCore
     {
         public enum State { PreGame, Playing, Finished }
 
-        // Primary sata set initially
-        public GameMode GameMode;
-        public List<Player> Players = new List<Player>();
+        public GameMode GameMode => gameMode;
+        public State GameState => currentState;
+        public GameContext Context => context;
+        public IEnumerable<Player> Players => players;
+        public IEnumerable<Team> Teams => teams;
+        public GamePhase CurrentGamePhase => gameMode.GamePhases[currentGamePhaseIndex];
+        public GameVariant Variant => variant;
 
-        // Secondary data that's computed
-        private List<Team> Teams = new List<Team>();
-        private GameVariant GameVariant;
-
-        // Queryable data that changes during game
-        public State CurrentState = State.PreGame;
-        public GamePhase CurrentGamePhase => GameMode.GamePhases[currentGamePhaseIndex];
-
+        private List<Team> teams = new List<Team>();
+        private List<Player> players = new List<Player>();
+        private GameVariant variant;
         private int currentGamePhaseIndex;
-        private GameContext gameContext;
-        private ActionExecutionRequestTable actionExecutionRequests = new ActionExecutionRequestTable();
+        private State currentState = State.PreGame;
+        private GameMode gameMode;
+        private GameContext context;
 
         public Game(GameMode gameMode, IEnumerable<Player> players)
         {
-            GameMode = gameMode;
-            Players.AddRange(players);
+            this.gameMode = gameMode;
+            this.players.AddRange(players);
         }
 
         public void StartGame()
         {
-            gameContext = new GameContext();
-            gameContext.Players.AddRange(Players);
-            GameVariant = GameMode.GetVariant(Players.Count);
-            Teams = GameVariant.ComputeTeams();
+            context = new GameContext();
+            context.Players.AddRange(players);
+            variant = gameMode.GetVariant(players.Count);
+            teams = variant.ComputeTeams();
             currentGamePhaseIndex = 0;
             AssignRoles();
             PerformStartingEffects();
-            CurrentState = State.Playing;
-        }
-
-        public void EnqueueActionExecutionRequest(Action action, Player executingPlayer, Context requestContext)
-        {
-            actionExecutionRequests.AddRequest(action, executingPlayer, requestContext);
-        }
-
-        public void ExecuteCurrentPhase()
-        {
-            if (CurrentGamePhase.ExecutionPipeline != null)
-            {
-                foreach (Action action in CurrentGamePhase.ExecutionPipeline.ActionExecutionOrder)
-                {
-                    if (GameMode.AlwaysExecuteActions.Contains(action))
-                    {
-                        if (action.ExecutionCondition.Evaluate(new ExecutionParams(null, gameContext, new Context())))
-                        {
-                            action.ExecutionEffect.Apply(new ExecutionParams(null, gameContext, new Context()));
-                        }
-                    }
-                    foreach (Team team in GameVariant.ComputeTeams())
-                    {
-                        if (team.AlwaysExecuteActions.Contains(action))
-                        {
-                            if (action.ExecutionCondition.Evaluate(new ExecutionParams(null, gameContext, new Context())))
-                            {
-                                action.ExecutionEffect.Apply(new ExecutionParams(null, gameContext, new Context()));
-                            }
-                        }
-                    }
-                    foreach (Player player in Players)
-                    {
-                        if (GameMode.SharedAlwaysExecuteActions.Contains(action))
-                        {
-                            if (action.ExecutionCondition.Evaluate(new ExecutionParams(player, gameContext, new Context())))
-                            {
-                                action.ExecutionEffect.Apply(new ExecutionParams(player, gameContext, new Context()));
-                            }
-                        }
-                    }
-                    foreach (Player player in Players)
-                    {
-                        if (player.Role.Team.SharedAlwaysExecuteActions.Contains(action))
-                        {
-                            if (action.ExecutionCondition.Evaluate(new ExecutionParams(player, gameContext, new Context())))
-                            {
-                                action.ExecutionEffect.Apply(new ExecutionParams(player, gameContext, new Context()));
-                            }
-                        }
-                    }
-                    foreach (Player player in Players)
-                    {
-                        if (player.Role.AlwaysExecuteActions.Contains(action))
-                        {
-                            if (action.ExecutionCondition.Evaluate(new ExecutionParams(player, gameContext, new Context())))
-                            {
-                                action.ExecutionEffect.Apply(new ExecutionParams(player, gameContext, new Context()));
-                            }
-                        }
-                    }
-                    foreach (ActionExecutionRequestTable.Entry entry in actionExecutionRequests.GetExecutionContextsFor(action))
-                    {
-                        if (action.ExecutionCondition.Evaluate(new ExecutionParams(entry.ExecutingPlayer, gameContext, entry.ExecutionContext)))
-                        {
-                            action.ExecutionEffect.Apply(new ExecutionParams(entry.ExecutingPlayer, gameContext, entry.ExecutionContext));
-                        }
-                    }
-                }
-            }
-            actionExecutionRequests.Clear();
+            currentState = State.Playing;
         }
 
         public void MoveToNextPhase()
         {
-            actionExecutionRequests.Clear();
+            CurrentGamePhase?.OnEnd(this);
             currentGamePhaseIndex++;
-            currentGamePhaseIndex %= GameMode.GamePhases.Count;
+            currentGamePhaseIndex %= gameMode.GamePhases.Count;
+            CurrentGamePhase?.OnBegin(this);
         }
 
         public List<Action> GetAllPlayerActionsFor(Player player)
         {
             List<Action> allActions = new List<Action>();
-            allActions.AddRange(GameMode.SharedUserActions);
+            allActions.AddRange(gameMode.SharedUserActions);
             allActions.AddRange(player.Role.Team.SharedUserActions);
             allActions.AddRange(player.Role.PlayerActions);
             return allActions;
@@ -147,10 +78,10 @@ namespace MafiaCore
             foreach (Action action in GetAllPlayerActionsFor(player))
             {
                 // If the current game phase supports this action
-                if (CurrentGamePhase.ExecutionPipeline.ActionExecutionOrder.Contains(action))
+                if (CurrentGamePhase.ActionPermitted(action))
                 {
                     // If the action passes it's availability condition
-                    if (action.AvailabilityCondition == null || action.AvailabilityCondition.Evaluate(new ExecutionParams(player, gameContext, new Context())))
+                    if (action.AvailabilityCondition == null || action.AvailabilityCondition.Evaluate(new ExecutionParams(player, context, new Context())))
                     {
                         available.Add(action);
                     }
@@ -162,9 +93,9 @@ namespace MafiaCore
         public List<Team> CheckForWinningTeams()
         {
             List<Team> winningTeams = new List<Team>();
-            foreach (Team team in Teams)
+            foreach (Team team in teams)
             {
-                if (team.WinCondition.Evaluate(new ExecutionParams(null, gameContext, new Context())))
+                if (team.WinCondition.Evaluate(new ExecutionParams(null, context, new Context())))
                 {
                     winningTeams.Add(team);
                 }
@@ -176,10 +107,10 @@ namespace MafiaCore
         public List<Player> CheckForWinningPlayers()
         {
             List<Player> winners = new List<Player>();
-            foreach (Player player in Players)
+            foreach (Player player in players)
             {
                 if (player.Role.WinCondition == null) continue;
-                if (player.Role.WinCondition.Evaluate(new ExecutionParams(player, gameContext, new Context())))
+                if (player.Role.WinCondition.Evaluate(new ExecutionParams(player, context, new Context())))
                 {
                     winners.Add(player);
                 }
@@ -193,39 +124,39 @@ namespace MafiaCore
         private void AssignRoles()
         {
             // Fill out any missing roles by duplicating last
-            List<Role> roles = new List<Role>(GameVariant.Roles);
+            List<Role> roles = new List<Role>(variant.Roles);
             Role lastRole = roles[roles.Count - 1];
-            for (int i = roles.Count; i < Players.Count; i++)
+            for (int i = roles.Count; i < players.Count; i++)
             {
                 roles.Add(lastRole);
             }
 
             // TODO: Shuffle roles
 
-            for(int i = 0; i < Players.Count; i++)
+            for(int i = 0; i < players.Count; i++)
             {
-                Players[i].AssignRole(roles[i]);
+                players[i].AssignRole(roles[i]);
             }
         }
 
         private void PerformStartingEffects()
         {
-            GameMode.StartingEffect?.Apply(new ExecutionParams(null, gameContext, new Context()));
-            foreach (Team team in GameVariant.ComputeTeams())
+            gameMode.StartingEffect?.Apply(new ExecutionParams(null, context, new Context()));
+            foreach (Team team in variant.ComputeTeams())
             {
-                team.StartingEffect?.Apply(new ExecutionParams(null, gameContext, new Context()));
+                team.StartingEffect?.Apply(new ExecutionParams(null, context, new Context()));
             }
-            foreach (Player player in Players)
+            foreach (Player player in players)
             {
-                GameMode.SharedStartingEffect?.Apply(new ExecutionParams(player, gameContext, new Context()));
+                gameMode.SharedStartingEffect?.Apply(new ExecutionParams(player, context, new Context()));
             }
-            foreach (Player player in Players)
+            foreach (Player player in players)
             {
-                player.Role.Team.SharedStartingEffect?.Apply(new ExecutionParams(player, gameContext, new Context()));
+                player.Role.Team.SharedStartingEffect?.Apply(new ExecutionParams(player, context, new Context()));
             }
-            foreach (Player player in Players)
+            foreach (Player player in players)
             {
-                player.Role.StartingEffect?.Apply(new ExecutionParams(player, gameContext, new Context()));
+                player.Role.StartingEffect?.Apply(new ExecutionParams(player, context, new Context()));
             }
         }
     }
