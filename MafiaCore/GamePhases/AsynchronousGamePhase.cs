@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MafiaCore
 {
+    [Serializable]
     public class AsynchronousGamePhase : GamePhase
     {
         public List<Action> ActionExecutionOrder = new List<Action>();
@@ -105,7 +107,8 @@ namespace MafiaCore
             }
         }
 
-        private struct ActionRequest
+        [Serializable]
+        public struct ActionRequest
         {
             public Action Action;
             public Player Requester;

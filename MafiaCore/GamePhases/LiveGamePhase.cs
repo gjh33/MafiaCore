@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 
 namespace MafiaCore
 {
+    [Serializable]
     public class LiveGamePhase : GamePhase
     {
         public List<Action> PermittedActions = new List<Action>();

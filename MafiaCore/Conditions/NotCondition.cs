@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MafiaCore.Conditions
 {
+    [Serializable]
     public class NotCondition : Condition
     {
         public Condition Condition;

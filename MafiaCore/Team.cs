@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MafiaCore
 {
+    [Serializable]
     public class Team
     {
         public Condition WinCondition;

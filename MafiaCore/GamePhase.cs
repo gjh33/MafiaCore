@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace MafiaCore
 {
+    [Serializable]
     public abstract class GamePhase
     {
         public string Name;

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MafiaCore.Effects
 {
+    [Serializable]
     public class BranchEffect : Effect
     {
         public Condition Condition;

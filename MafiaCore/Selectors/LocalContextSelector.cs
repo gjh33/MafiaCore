@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MafiaCore.Selectors
 {
+    [Serializable]
     public class LocalContextSelector : Selector<Context>
     {
         public override Context Select(ExecutionParams executionContext)

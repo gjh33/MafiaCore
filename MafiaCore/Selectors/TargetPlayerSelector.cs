@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MafiaCore.Selectors
 {
+    [Serializable]
     public class TargetPlayerSelector : Selector<Player>
     {
         public Selector<Context> ContextSelector;

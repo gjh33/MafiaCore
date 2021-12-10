@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MafiaCore.Selectors
 {
+    [Serializable]
     public class BranchSelector<T> : Selector<T>
     {
         public Condition Condition;

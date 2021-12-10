@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MafiaCore
 {
+    [Serializable]
     public class GameMode
     {
         public string Name;

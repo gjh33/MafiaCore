@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MafiaCore
 {
+    [Serializable]
     public class Action
     {
         public string Name;

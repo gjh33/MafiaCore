@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MafiaCore.Conditions
 {
+    [Serializable]
     public class ComparisonCondition : Condition
     {
         public enum ComparisonOperator { GreaterThan, GreaterThanOrEqualTo, EqualTo, LessThanOrEqualTo, LessThan }

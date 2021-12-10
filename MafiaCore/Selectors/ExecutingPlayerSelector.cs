@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MafiaCore.Selectors
 {
+    [Serializable]
     public class ExecutingPlayerSelector : Selector<Player>
     {
         public override Player Select(ExecutionParams executionContext)

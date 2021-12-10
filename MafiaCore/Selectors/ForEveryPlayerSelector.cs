@@ -4,10 +4,13 @@
 // The reasons are that some platforms (like unity) cannot serialize
 // interfaces, and the alternative was to have ISelector which ForEveryPlayerEffect
 // could also implement, thus avoiding the circular dependency. Oh well.
+
+using System;
 using MafiaCore.Effects;
 
 namespace MafiaCore.Selectors
 {
+    [Serializable]
     public class ForEveryPlayerSelector : Selector<Player>
     {
         public ForEveryPlayerEffect ForEveryPlayerEffect;

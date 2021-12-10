@@ -68,7 +68,6 @@
     <Compile Include="GamePhase.cs" />
     <Compile Include="GamePhases\AsynchronousGamePhase.cs" />
     <Compile Include="GamePhases\LiveGamePhase.cs" />
-    <Compile Include="MessageBoard.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />
@@ -89,6 +88,6 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   
   <Target Name="AfterBuild">
-    <Copy SourceFiles="$(OutputPath)\MafiaCore.dll" DestinationFolder="D:\Personal Projects\Cardinal\Assets\MafiaScape\Plugins" ContinueOnError="true" />
+    <Copy SourceFiles="$(OutputPath)\MafiaCore.dll" DestinationFolder="D:\Personal Projects\Cardinal\Assets\MafiaCore\Plugins" ContinueOnError="true" />
   </Target>
 </Project>

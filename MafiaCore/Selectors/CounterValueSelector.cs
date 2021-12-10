@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MafiaCore.Selectors
 {
+    [Serializable]
     public class CounterValueSelector : Selector<int>
     {
         public Selector<Context> ContextSelector;

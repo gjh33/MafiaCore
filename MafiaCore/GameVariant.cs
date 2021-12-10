@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MafiaCore
 {
+    [Serializable]
     public class GameVariant
     {
         public List<Role> Roles = new List<Role>();

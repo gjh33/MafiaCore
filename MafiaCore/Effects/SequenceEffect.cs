@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MafiaCore.Effects
 {
+    [Serializable]
     public class SequenceEffect : Effect
     {
         public List<Effect> SubEffects = new List<Effect>();

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MafiaCore.Selectors
 {
+    [Serializable]
     public class ConstantSelector<T> : Selector<T>
     {
         public T Value;

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MafiaCore.Selectors
 {
+    [Serializable]
     public class ArithmaticValueSelector : Selector<int>
     {
         public enum MathOperation { Add, Subtract, Multiply, Divide }

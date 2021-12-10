@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MafiaCore.Conditions
 {
+    [Serializable]
     public class AndCondition : Condition
     {
         public List<Condition> SubConditions = new List<Condition>();
