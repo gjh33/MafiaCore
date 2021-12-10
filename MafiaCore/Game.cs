@@ -29,6 +29,8 @@ namespace MafiaCore
         public GamePhase CurrentGamePhase => gameMode.GamePhases[currentGamePhaseIndex];
         public GameVariant Variant => variant;
 
+        public int RngSeed => rngSeed;
+        
         private List<Team> teams = new List<Team>();
         private List<Player> players = new List<Player>();
         private GameVariant variant;
@@ -36,6 +38,7 @@ namespace MafiaCore
         private State currentState = State.PreGame;
         private GameMode gameMode;
         private GameContext context;
+        private int rngSeed;
 
         public Game(GameMode gameMode, IEnumerable<Player> players)
         {
@@ -45,7 +48,15 @@ namespace MafiaCore
 
         public void StartGame()
         {
+            int seed = Guid.NewGuid().GetHashCode();
+            StartGame(seed);
+        }
+
+        public void StartGame(int rngSeed)
+        {
+            this.rngSeed = rngSeed;
             context = new GameContext();
+            context.rng = new Random(rngSeed);
             context.Players.AddRange(players);
             variant = gameMode.GetVariant(players.Count);
             teams = variant.ComputeTeams();
@@ -131,8 +142,19 @@ namespace MafiaCore
                 roles.Add(lastRole);
             }
 
-            // TODO: Shuffle roles
+            // Shuffle a list using swaps
+            // Credit: https://stackoverflow.com/a/1262619
+            int n = roles.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = context.rng.Next(n + 1);
+                Role value = roles[k];
+                roles[k] = roles[n];
+                roles[n] = value;
+            }
 
+            // Assign Roles
             for(int i = 0; i < players.Count; i++)
             {
                 players[i].AssignRole(roles[i]);

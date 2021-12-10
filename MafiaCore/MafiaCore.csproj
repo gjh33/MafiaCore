@@ -80,6 +80,8 @@
     <Compile Include="Selectors\LocalContextSelector.cs" />
     <Compile Include="Selectors\GameContextSelector.cs" />
     <Compile Include="Selectors\ExecutingPlayerSelector.cs" />
+    <Compile Include="Selectors\RandomNumberSelector.cs" />
+    <Compile Include="Selectors\RandomPlayerSelector.cs" />
     <Compile Include="Selectors\TargetPlayerSelector.cs" />
     <Compile Include="Selectors\CounterValueSelector.cs" />
     <Compile Include="Team.cs" />
