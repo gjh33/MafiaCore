@@ -92,7 +92,7 @@ namespace MafiaCore
                 if (CurrentGamePhase.ActionPermitted(action))
                 {
                     // If the action passes it's availability condition
-                    if (action.AvailabilityCondition == null || action.AvailabilityCondition.Evaluate(new ExecutionParams(player, context, new Context())))
+                    if (action.AvailabilityCondition == null || action.AvailabilityCondition.Evaluate(new ExecutionParams(player, context, null)))
                     {
                         available.Add(action);
                     }
@@ -106,7 +106,7 @@ namespace MafiaCore
             List<Team> winningTeams = new List<Team>();
             foreach (Team team in teams)
             {
-                if (team.WinCondition.Evaluate(new ExecutionParams(null, context, new Context())))
+                if (team.WinCondition.Evaluate(new ExecutionParams(null, context, null)))
                 {
                     winningTeams.Add(team);
                 }
@@ -121,7 +121,7 @@ namespace MafiaCore
             foreach (Player player in players)
             {
                 if (player.Role.WinCondition == null) continue;
-                if (player.Role.WinCondition.Evaluate(new ExecutionParams(player, context, new Context())))
+                if (player.Role.WinCondition.Evaluate(new ExecutionParams(player, context, null)))
                 {
                     winners.Add(player);
                 }
@@ -163,22 +163,22 @@ namespace MafiaCore
 
         private void PerformStartingEffects()
         {
-            gameMode.StartingEffect?.Apply(new ExecutionParams(null, context, new Context()));
+            gameMode.StartingEffect?.Apply(new ExecutionParams(null, context, null));
             foreach (Team team in variant.ComputeTeams())
             {
-                team.StartingEffect?.Apply(new ExecutionParams(null, context, new Context()));
+                team.StartingEffect?.Apply(new ExecutionParams(null, context, null));
             }
             foreach (Player player in players)
             {
-                gameMode.SharedStartingEffect?.Apply(new ExecutionParams(player, context, new Context()));
+                gameMode.SharedStartingEffect?.Apply(new ExecutionParams(player, context, null));
             }
             foreach (Player player in players)
             {
-                player.Role.Team.SharedStartingEffect?.Apply(new ExecutionParams(player, context, new Context()));
+                player.Role.Team.SharedStartingEffect?.Apply(new ExecutionParams(player, context, null));
             }
             foreach (Player player in players)
             {
-                player.Role.StartingEffect?.Apply(new ExecutionParams(player, context, new Context()));
+                player.Role.StartingEffect?.Apply(new ExecutionParams(player, context, null));
             }
         }
     }

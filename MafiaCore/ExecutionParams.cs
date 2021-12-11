@@ -12,13 +12,14 @@ namespace MafiaCore
         public List<Player> Players;
         public Context RequestContext;
         public GameContext GameContext;
+        public List<InputEntry> InputEntries;
 
-        public ExecutionParams(Player executingPlayer, GameContext gameContext, Context localContext)
+        public ExecutionParams(Player executingPlayer, GameContext gameContext, List<InputEntry> inputs)
         {
             ExecutingPlayer = executingPlayer;
-            RequestContext = localContext;
+            RequestContext = new Context();
             GameContext = gameContext;
+            InputEntries = inputs;
         }
-
     }
 }

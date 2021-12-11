@@ -15,8 +15,6 @@ namespace MafiaCore
         public Condition ExecutionCondition;
         public Effect ExecutionEffect;
 
-        public List<Selector<string>> PlayerInputTargets;
-        public List<Selector<string>> PlayerInputCounters;
-        public List<Selector<string>> PlayerInputFlags;
+        public List<Input> Inputs;
     }
 }

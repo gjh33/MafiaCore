@@ -42,8 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Action.cs" />
-    <Compile Include="ActionExecutionRequestTable.cs" />
     <Compile Include="Condition.cs" />
+    <Compile Include="Conditions\InputBoolCondition.cs" />
     <Compile Include="Conditions\NotCondition.cs" />
     <Compile Include="Conditions\AndCondition.cs" />
     <Compile Include="Conditions\ComparisonCondition.cs" />
@@ -68,6 +68,8 @@
     <Compile Include="GamePhase.cs" />
     <Compile Include="GamePhases\AsynchronousGamePhase.cs" />
     <Compile Include="GamePhases\LiveGamePhase.cs" />
+    <Compile Include="Input.cs" />
+    <Compile Include="InputEntry.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="Selectors\BranchSelector.cs" />
     <Compile Include="Selectors\ConstantSelector.cs" />
     <Compile Include="Selectors\ForEveryPlayerSelector.cs" />
+    <Compile Include="Selectors\InputValueSelector.cs" />
     <Compile Include="Selectors\PlayerContextSelector.cs" />
     <Compile Include="Selectors\LocalContextSelector.cs" />
     <Compile Include="Selectors\GameContextSelector.cs" />

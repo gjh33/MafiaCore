@@ -10,13 +10,13 @@ namespace MafiaCore
 
         private HashSet<ActionRequest> queuedRequests = new HashSet<ActionRequest>();
 
-        public override void Request(Game game, Action action, Player requester, Context localContext)
+        public override void Request(Game game, Action action, Player requester, List<InputEntry> inputs)
         {
             queuedRequests.Add(new ActionRequest
             {
                 Action = action,
                 Requester = requester,
-                LocalContext = localContext,
+                Inputs = inputs,
             });
         }
 
@@ -42,9 +42,9 @@ namespace MafiaCore
             {
                 if (game.GameMode.AlwaysExecuteActions.Contains(action))
                 {
-                    if (action.ExecutionCondition.Evaluate(new ExecutionParams(null, game.Context, new Context())))
+                    if (action.ExecutionCondition.Evaluate(new ExecutionParams(null, game.Context, null)))
                     {
-                        action.ExecutionEffect.Apply(new ExecutionParams(null, game.Context, new Context()));
+                        action.ExecutionEffect.Apply(new ExecutionParams(null, game.Context, null));
                     }
                 }
 
@@ -52,9 +52,9 @@ namespace MafiaCore
                 {
                     if (team.AlwaysExecuteActions.Contains(action))
                     {
-                        if (action.ExecutionCondition.Evaluate(new ExecutionParams(null, game.Context, new Context())))
+                        if (action.ExecutionCondition.Evaluate(new ExecutionParams(null, game.Context, null)))
                         {
-                            action.ExecutionEffect.Apply(new ExecutionParams(null, game.Context, new Context()));
+                            action.ExecutionEffect.Apply(new ExecutionParams(null, game.Context, null));
                         }
                     }
                 }
@@ -63,9 +63,9 @@ namespace MafiaCore
                 {
                     if (game.GameMode.SharedAlwaysExecuteActions.Contains(action))
                     {
-                        if (action.ExecutionCondition.Evaluate(new ExecutionParams(player, game.Context, new Context())))
+                        if (action.ExecutionCondition.Evaluate(new ExecutionParams(player, game.Context, null)))
                         {
-                            action.ExecutionEffect.Apply(new ExecutionParams(player, game.Context, new Context()));
+                            action.ExecutionEffect.Apply(new ExecutionParams(player, game.Context, null));
                         }
                     }
                 }
@@ -74,9 +74,9 @@ namespace MafiaCore
                 {
                     if (player.Role.Team.SharedAlwaysExecuteActions.Contains(action))
                     {
-                        if (action.ExecutionCondition.Evaluate(new ExecutionParams(player, game.Context, new Context())))
+                        if (action.ExecutionCondition.Evaluate(new ExecutionParams(player, game.Context, null)))
                         {
-                            action.ExecutionEffect.Apply(new ExecutionParams(player, game.Context, new Context()));
+                            action.ExecutionEffect.Apply(new ExecutionParams(player, game.Context, null));
                         }
                     }
                 }
@@ -85,9 +85,9 @@ namespace MafiaCore
                 {
                     if (player.Role.AlwaysExecuteActions.Contains(action))
                     {
-                        if (action.ExecutionCondition.Evaluate(new ExecutionParams(player, game.Context, new Context())))
+                        if (action.ExecutionCondition.Evaluate(new ExecutionParams(player, game.Context, null)))
                         {
-                            action.ExecutionEffect.Apply(new ExecutionParams(player, game.Context, new Context()));
+                            action.ExecutionEffect.Apply(new ExecutionParams(player, game.Context, null));
                         }
                     }
                 }
@@ -97,10 +97,10 @@ namespace MafiaCore
                     if (request.Action == action)
                     {
                         if (action.ExecutionCondition.Evaluate(new ExecutionParams(request.Requester, game.Context,
-                            request.LocalContext)))
+                            request.Inputs)))
                         {
                             action.ExecutionEffect.Apply(new ExecutionParams(request.Requester, game.Context,
-                                request.LocalContext));
+                                request.Inputs));
                         }
                     }
                 }
@@ -112,7 +112,7 @@ namespace MafiaCore
         {
             public Action Action;
             public Player Requester;
-            public Context LocalContext;
+            public List<InputEntry> Inputs;
         }
     }
 }

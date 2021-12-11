@@ -16,11 +16,11 @@ namespace MafiaCore
         {
         }
 
-        public override void Request(Game game, Action action, Player requester, Context localContext)
+        public override void Request(Game game, Action action, Player requester, List<InputEntry> inputs)
         {
-            if (action.ExecutionCondition.Evaluate(new ExecutionParams(requester, game.Context, localContext)))
+            if (action.ExecutionCondition.Evaluate(new ExecutionParams(requester, game.Context, inputs)))
             {
-                action.ExecutionEffect.Apply(new ExecutionParams(requester, game.Context, localContext));
+                action.ExecutionEffect.Apply(new ExecutionParams(requester, game.Context, inputs));
             }
         }
 
