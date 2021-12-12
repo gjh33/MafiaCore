@@ -9,6 +9,7 @@ namespace MafiaCore
     [Serializable]
     public class Team
     {
+        public string Name;
         public Condition WinCondition;
         public Effect StartingEffect;
         public Effect SharedStartingEffect;
