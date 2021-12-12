@@ -10,6 +10,7 @@ namespace MafiaCore
     public class Team
     {
         public string Name;
+        public string Description;
         public Condition WinCondition;
         public Effect StartingEffect;
         public Effect SharedStartingEffect;

@@ -10,6 +10,7 @@ namespace MafiaCore
     public class Role
     {
         public string Name;
+        public string Description;
         public Team Team;
         public Condition WinCondition;
         public List<Action> PlayerActions = new List<Action>();

@@ -10,6 +10,7 @@ namespace MafiaCore
     public class GameMode
     {
         public string Name;
+        public string Description;
         public Effect StartingEffect;
         public Effect SharedStartingEffect;
         public List<GamePhase> GamePhases = new List<GamePhase>();

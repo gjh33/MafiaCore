@@ -10,6 +10,7 @@ namespace MafiaCore
     public class Action
     {
         public string Name;
+        public string Description;
         public Condition AvailabilityCondition;
         public Effect InstantEffect;
         public Condition ExecutionCondition;
